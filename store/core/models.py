@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from django.conf import settings
 # Create your models here.
 
 class Base(models.Model):
@@ -20,7 +21,7 @@ class Base(models.Model):
     
     deleted_date=models.DateTimeField(default=None, null=True,blank=True)
     
-    user=models.ForeignKey(User,on_delete=models.PROTECT)
+    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,null=True)
     
     # this class do not create on the database 
     # use only abstract another class 
@@ -42,7 +43,8 @@ class Category(Base):
     name=models.CharField(max_length=225)
     
     # beacuse every table relation 1 to 1 with itself
-    parent=models.ForeignKey('Category',null=True
+    parent=models.ForeignKey('Category'
+                             ,null=True
                              ,default=None
                              ,on_delete=models.PROTECT
                              ,related_name='children')

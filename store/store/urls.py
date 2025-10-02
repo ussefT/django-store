@@ -26,7 +26,7 @@ urlpatterns = [
     # path('say',views.say,name='say')
     
     # use url from this module
-    path('',include('core.urls',namespace='core'))
+    path('',include('core.urls')),
     # namespace tell django url only use this 
     # if another app use same url does not conflict 
     # same (app_name) in url
