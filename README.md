@@ -9,10 +9,15 @@
 - [MiddleWare]()
 - [ORM]()
 - [cach]()
-For install django in linux
 
+
+For install django in linux, create virtualenv
 ```python
 python3 -m virtualenv env
+```
+Install module
+```python
+pip install -r requirement.txt
 ```
 
 After that create app 
