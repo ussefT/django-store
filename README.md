@@ -9,7 +9,7 @@
 - [MiddleWare]()
 - [ORM]()
 - [cach]()
-
+- [templates]()
 
 For install django in linux, create virtualenv
 ```python
@@ -25,6 +25,7 @@ After that create app
 ```python
 django-admin startproject store
 ```
+
 run app
 
 ```python
@@ -215,7 +216,53 @@ widecolumn (cassandra)
 graph (neo4j)
 
 
+---
+## templates
+Escape [html entities] :
+in html can write special word browser can understand
+& gt -> >  [EntityHTML](https://www.w3schools.com/html/html_entities.asp)
+
+If use editor in site we dont use 
+[TextEditor](https://www.tiny.cloud/docs/tinymce/latest/basic-example/)
+
+```html
+{% autoescape off%}
+....
+{% autoescape%}
+```
+- [static]()
+- [for]()
+- [if]()
+- []()
+Dajango can render HTML page for that recognise file :
+
+```bash
+
+```
+
+### for
+
+```html
+{% for i in item %}
+{{item.name}}
+
+{% empty %}
+<p> is empty </p>
+{% endfor %}
+```
+
+### static
+In app folder (templates) in templates put (static) 
+
+for load static file 
+
+STATIC_URL in setting that folder use in STATIC_URL/appname/js
+
+```html
+{%load static%}
+...
+<script src="{% static 'appname/js/holder.min.js' %}"</script>
+```
 
 
 
- 

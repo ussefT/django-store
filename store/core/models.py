@@ -45,6 +45,7 @@ class Category(Base):
     # beacuse every table relation 1 to 1 with itself
     parent=models.ForeignKey('Category'
                              ,null=True
+                             ,blank=True
                              ,default=None
                              ,on_delete=models.PROTECT
                              ,related_name='children')
@@ -67,7 +68,7 @@ class Product(Base): # create table
     enabled=models.BooleanField()
     deleted=models.BooleanField(default=False)
     description=models.TextField()
-    
+    image=models.ImageField(upload_to='covers/',null=True,blank=True)
     # if delete both delete them
     category=models.ForeignKey(Category,on_delete=models.PROTECT
                               ,related_name='products')

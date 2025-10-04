@@ -26,8 +26,9 @@ SECRET_KEY = 'django-insecure-qiy96wpst0$xwr^+8s8(4f=d#indm+$oqs4&o%-k4^iqd6jq$i
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '0.0.0.0'
-    ,'192.168.56.105'
+    
+    # '0.0.0.0'
+    # ,'192.168.56.105'
     ]
 
 
@@ -125,12 +126,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+MEDIA_ROOT=BASE_DIR/'media'
+MEDIA_URL='media/'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# it means end of every urls append / 
-APPEND_SLASH=True
-# add first every url 
-PREPEND_WWW=True
+# # it means end of every urls append / 
+# APPEND_SLASH=True
+# # add first every url 
+# PREPEND_WWW=True
