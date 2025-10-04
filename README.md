@@ -218,6 +218,10 @@ graph (neo4j)
 
 ---
 ## templates
+Two engine can render html in python
+Django Temeplate Engine (DTE)
+Jinja
+
 Escape [html entities] :
 in html can write special word browser can understand
 & gt -> >  [EntityHTML](https://www.w3schools.com/html/html_entities.asp)
@@ -231,9 +235,11 @@ If use editor in site we dont use
 {% autoescape%}
 ```
 - [static]()
+- [block]()
 - [for]()
 - [if]()
-- []()
+- [debug]()
+- [include]()
 Dajango can render HTML page for that recognise file :
 
 ```bash
@@ -264,5 +270,43 @@ STATIC_URL in setting that folder use in STATIC_URL/appname/js
 <script src="{% static 'appname/js/holder.min.js' %}"</script>
 ```
 
+### block
+Django can render html inner html with block
+In setting.py 
+```python
+        # scan additionl dir
+        'DIRS': [BASE_DIR / 'templates'],
+        # scan dirs in apps 
+        'APP_DIRS': True,
+```
+base.html
+```html
+{% block name%}
+No Content
+{% encblock %}
+```
+
+product.html
+```html
+{% extends 'base.html'%}
+...
+
+{% block name%}
+
+{% endblock %}
+```
+
+#### deug 
+you in template debug var with and break point in pycharm pro.
+```html
+{% debug %}
+```
+
+
+#### include
+This tag can render section in html like header, footer
+```html
+{% include 'bits/main_header.html' %}
+```
 
 
