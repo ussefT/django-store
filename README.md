@@ -4,12 +4,20 @@
 - [Wagtial](https://wagtail.org)
 - [mange.py]()
 - [setting.py]()
+- [MiddleWare]()
 - [database]()
 - [architecture]()
-- [MiddleWare]()
 - [ORM]()
 - [cach]()
 - [templates]()
+- [auth]()
+- [authentication]()
+- [authorization]()
+- [accounting]()
+- [url]()
+    > [url](https://docs.djangoproject.com/en/5.2/ref/urls/)
+- [csrf]()
+
 
 For install django in linux, create virtualenv
 ```python
@@ -308,5 +316,58 @@ This tag can render section in html like header, footer
 ```html
 {% include 'bits/main_header.html' %}
 ```
+---
+## auth
+- Basic Auth
+stateless no memory, like alert in browser
+Add header (Authorization : Basic [base64] ) use for router and modemADSL
+- Session Auth
+- Token Auth
+- JWT
+- OAuth
+- External (SSO)
+---
+## authentication
+
+swappable means can change class in djano
+
+If use auth field use this import
+> from django.contrib.auth.models import AbstractBaseUser
 
 
+If use auth in base import 
+> from django.contrib.auth.models import AbstractUser
+
+0
+
+use own auth dynamic use in models
+```python
+# this import tell django use model auth that in setting define and dynamic
+# after if change account app this model is not crash
+
+from django.contrib.auth import get_user_model
+```
+
+
+---
+## authorization
+
+---
+## accounting
+
+---
+
+## url
+In djnago can use this:
+```text
+use path -> /store/product/<pid>
+use re_path -> /store/product/(?P<pid>\d+)
+```
+
+### login
+
+Default django does define login in url auth but does not have 
+html we can create HTML login in own auth this example account
+
+## crsf
+Defend from XSRF, XSS

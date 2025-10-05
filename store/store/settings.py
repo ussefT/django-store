@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -44,7 +46,7 @@ INSTALLED_APPS = [
     
     # install isbn like $ pip install django-isbn-field
     'isbn_field',
-     
+     'account',
      # Add own app to this
     'core',
 ]
@@ -138,3 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # APPEND_SLASH=True
 # # add first every url 
 # PREPEND_WWW=True
+
+# set auth user instead default auth django
+AUTH_USER_MODEL = 'account.User'
+
+# after login redirect to
+# LOGIN_REDIRECT_URL = 'core:productList'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL='/'

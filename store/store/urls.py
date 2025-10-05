@@ -20,7 +20,10 @@ from core import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    
+
+
+
+    path('account/',include('django.contrib.auth.urls')),
     
     # name means use another files can access and use it
     # path('say',views.say,name='say')

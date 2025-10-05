@@ -1,8 +1,20 @@
 from django.db import models
 import uuid
-from django.contrib.auth.models import User
+
+# use default auth
+# from django.contrib.auth.models import User
+
+# use own model static
+# from account.models import User
+
+# this import tell django use model auth that in setting define and dynamic
+# after if change account app this model is not crash
+from django.contrib.auth import get_user_model
+
 from django.conf import settings
 # Create your models here.
+
+User=get_user_model()
 
 class Base(models.Model):
    # unique hash code random
@@ -21,7 +33,7 @@ class Base(models.Model):
     
     deleted_date=models.DateTimeField(default=None, null=True,blank=True)
     
-    user=models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.PROTECT,null=True)
+    user=models.ForeignKey(User,on_delete=models.PROTECT,null=True)
     
     # this class do not create on the database 
     # use only abstract another class 
