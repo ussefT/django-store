@@ -322,10 +322,18 @@ This tag can render section in html like header, footer
 stateless no memory, like alert in browser
 Add header (Authorization : Basic [base64] ) use for router and modemADSL
 - Session Auth
+> Best for browser
 - Token Auth
+> Generate a code, send for user after that every time user req send this
 - JWT
+> Json Web Token 1- acceses token 2- refresh token for access token send refresh token for app
 - OAuth
+> Open Auth, login with Google,github
 - External (SSO)
+> Library or another way.Single Sign up. like KEYCLOACK
+
+Django use Session Auth.
+
 ---
 ## authentication
 
