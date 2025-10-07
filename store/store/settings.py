@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     
     # install isbn like $ pip install django-isbn-field
     'isbn_field',
+    # "phonenumber_field",
      'account',
      # Add own app to this
     'core',

@@ -24,7 +24,8 @@ urlpatterns = [
 
 
     path('account/',include('django.contrib.auth.urls')),
-    
+
+    path('account/',include('account.urls')),
     # name means use another files can access and use it
     # path('say',views.say,name='say')
     
