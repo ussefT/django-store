@@ -19,9 +19,9 @@ def _get_avatar_upload_path(obj,filename):
 class User(AbstractUser):
     email=models.EmailField("Email Address")
     phone=models.CharField("Phone Number",max_length=15)
-    address=models.TextField("Address")
+    address=models.TextField("Address",blank=True,null=True)
     # use callback function
-    avatar=models.ImageField(upload_to=_get_avatar_upload_path)
+    avatar=models.ImageField(upload_to=_get_avatar_upload_path,blank=True,null=True)
 
     def __str__(self):
         return f"{self.username}"

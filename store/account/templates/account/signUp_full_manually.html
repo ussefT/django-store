@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <form method="post" enctype="application/x-www-form-urlencoded">
+    {% csrf_token %}
+        {{ form.non_field_errors }}
+    <tabel>
+
+        <tr>
+            <td>{{ form.username.label_tag }}:</td> <td>{{ form.username }}</td>
+        </tr>
+        <tr>
+            <td>{{ form.username.errors }}:</td>
+        </tr>
+        <tr>
+            <td>{{ form.first_name.label_tag }}:</td> <td>{{ form.first_name }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form.last_name.label_tag }}:</td> <td>{{ form.last_name }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form.phone.label_tag }}:</td> <td>{{ form.phone }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form.password1.label_tag }}:</td> <td>{{ form.password1 }}</td>
+        </tr>
+
+        <tr>
+            <td>{{ form.password2.label_tag }}:</td> <td>{{ form.password2 }}</td>
+        </tr>
+
+    </tabel>
+
+    </form>
+
+{% endblock %}

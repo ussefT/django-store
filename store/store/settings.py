@@ -149,3 +149,10 @@ AUTH_USER_MODEL = 'account.User'
 # LOGIN_REDIRECT_URL = 'core:productList'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL='/'
+
+
+EMAIL_HOST="addres of SMTP server"
+EMAIL_HOST_USER="store@company.com"
+EMAIL_HOST_PASSWORD=""
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
