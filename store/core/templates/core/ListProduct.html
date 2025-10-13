@@ -52,7 +52,7 @@ Total Product : {{ product|length }}
                         type="button"
                         class="btn btn-sm btn-outline-secondary"
                       >
-                        Add
+                        <a href="{% url 'core:cart_add' product.id%} " >Add<a/>
                       </button>
                     </div>
                     <small class="text-body-secondary">

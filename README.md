@@ -20,6 +20,7 @@
 - [csrf]()
 - [enctype]()
 - [SMTP]()
+- [session]()
 
 For install django in linux, create virtualenv
 ```python
@@ -370,6 +371,7 @@ If use editor in site we dont use
 - [if]()
 - [debug]()
 - [include]()
+- [context_processors]()
 Dajango can render HTML page for that recognise file :
 
 ```bash
@@ -438,6 +440,19 @@ This tag can render section in html like header, footer
 ```html
 {% include 'bits/main_header.html' %}
 ```
+
+
+### context_processors
+We access this var in HTML
+```python
+ # setting.py
+ 'context_processors': [
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+```
+
 ---
 ## auth
 - Basic Auth
@@ -530,4 +545,39 @@ For use gmail send email
 ```bash
 dig +short gmail.com mx 
 # some number is low better
+```
+
+## session
+(Session)[https://docs.djangoproject.com/en/5.2/topics/http/sessions/] can use cookie detect user. where is save?
+- Session Storage
+- DB 
+> django default save in DB
+- Client
+- Ram
+- File (setting)[]
+> php can save into file
+
+
+### setting 
+If save to file change setting:
+```python
+SESSION_ENGINE='django.contrib.sessions.backends.file'
+SESSION_FILE_PATH='/tmp/'
+```
+
+when close browser remove session
+```python
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+```
+
+base time
+```python
+# never remove
+SESSION_COOKIE_AGE=10*60 # by second 10min
+SESSION_COOKIE_AGE=0
+```
+
+we can delete all session
+```python
+python manage.py clearsessions
 ```

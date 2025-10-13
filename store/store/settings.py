@@ -157,3 +157,13 @@ EMAIL_HOST_USER="store@company.com"
 EMAIL_HOST_PASSWORD=""
 EMAIL_PORT=587
 EMAIL_USE_TLS=True
+
+## save session in file
+# SESSION_ENGINE='django.contrib.sessions.backends.file'
+# SESSION_FILE_PATH='/tmp/'
+
+SESSION_EXPIRE_AT_BROWSER_CLOSE=True
+
+# never remove
+SESSION_COOKIE_AGE=10*60 # by second 10min
+SESSION_COOKIE_AGE=0

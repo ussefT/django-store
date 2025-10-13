@@ -12,6 +12,10 @@
       </ul>
 
       <div class="col-md-3 d-inline-flex gap-3 text-end ">
+      <span>
+          Cart
+          (<span>{{ request.session.cart|length }}</span>
+      </span>
           {% if user.is_authenticated %}
         <button type="button" class="btn btn-primary">{{ user.username }}</button>
 
