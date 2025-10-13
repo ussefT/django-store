@@ -9,6 +9,7 @@
 - [architecture]()
 - [ORM]()
 - [cach]()
+- [form]()
 - [templates]()
 - [auth]()
 - [authentication]()
@@ -17,7 +18,8 @@
 - [url]()
     > [url](https://docs.djangoproject.com/en/5.2/ref/urls/)
 - [csrf]()
-
+- [enctype]()
+- [SMTP]()
 
 For install django in linux, create virtualenv
 ```python
@@ -225,6 +227,126 @@ graph (neo4j)
 
 
 ---
+## form
+Form like model but show in HTML
+Form:
+    filed: type, widget, validator
+3 way can validate field
+- [form in template]()
+- [custome form]()
+- [default form]()
+- [user auth form]()
+- [validatore]()
+- [clean_name]()
+- [use-another-library]()
+
+
+Two models Form 
+- forms.Form
+> customs form 
+- forms.ModelForm
+> generate form on own Model
+
+### validatore
+
+
+### clean_name
+For use this clean_(name field)
+```python
+def clean_name(self):
+        if self.cleaned_data['name']==self.cleaned_data['password1']:
+            raise ValidationError('Name is not same password')
+        return self.cleaned_data['name']
+```
+
+### costume form
+Define form manually
+```python
+
+class SignupForm(forms.Form):
+    name=forms.CharField(label='name',max_length=100)
+    family=forms.CharField(label='family',max_length=100)
+    email=forms.EmailField()
+    password1=forms.CharField(label='password',max_length=100,widget=forms.PasswordInput())
+    password2=forms.CharField(label='password',max_length=100,widget=forms.PasswordInput())
+    phone=forms.CharField(label='phone',max_length=100,validators=[validators.RegexValidator(r'(\+98|09|9)?9\d{8}$')
+                                                                   ,validators.MinLengthValidator(5),
+                                                                   validators.MaxLengthValidator(20)])
+    # phone=PhoneNumber()
+
+    # if validatore for form is not exist this a way
+    def clean_name(self):
+        if self.data['name']==self.data['password1']:
+            raise ValidationError('Name is not same password')
+        return self.data['name']
+
+```
+
+
+### default form
+Use this way, pickup from own model
+```python
+from django import forms
+class SignupFomr(forms.ModelForm):
+    class Meta:
+        model=models.User
+        fields=['first_name','last_name','email','phone']
+        # fields="__all__" # show all fields
+        exclude=['is_superuser','is_staff','is_active'] # not active
+
+```
+
+
+### user auth form
+Use model in django that use in user auth
+
+```python
+from django.contrib.auth.forms import UserCreationForm
+
+# use model default django user auth
+class SignUpForm(UserCreationForm):
+    class Meta:
+        model=models.User
+        exclude=['is_superuser','user_permissions'
+            ,'last_login','date_joined','avatar'
+                 'groups','is_staff','is_active'] # not active
+```
+### form in template
+
+
+Use split form 
+every form:
+- form.first_name
+- form.first_name.label_tag
+- form.first_name.error
+
+For none field error 
+```html
+        {{ form.non_field_errors }}
+```
+
+send from view GET
+```html
+ <tr>
+            <td>{{form.first_name.label_tag}}:</td> <td>{{ form.first_name }}</td>
+</tr>
+```
+
+We can use for
+```html
+   <table>
+       {% for field in form %}
+           <tr>
+           <td> {{ field.errors }}</td>
+           </tr>
+           <tr>
+           <td> {{ field.label_tag }} : {{ field }} {% if field.help_text %} {{ field.help_text }}{% endif %}</td>
+           </tr>
+
+       {% endfor %}
+   </table>
+```
+---
 ## templates
 Two engine can render html in python
 Django Temeplate Engine (DTE)
@@ -379,3 +501,33 @@ html we can create HTML login in own auth this example account
 
 ## crsf
 Defend from XSRF, XSS
+
+## enctype
+- text/plain 
+> Data is raw send to server
+- application/x-www-form-urldecoded
+> Encoded url 
+- multipart/form-data
+> Best for upload file
+
+## SMTP
+First protocl for transfer, recive, send Mail.
+- Recieve work with POP3,IMAP (MDA = Mail Delivery Agent) (Best app for this Dovecoat) 
+- Send work with SMTP (MTA = Mail Transfer Agent) (Best app for this Postfix)
+Gmail, Yahoo like post
+
+- SMTP is PORTS
+> 25 -> Server to Server
+> 465
+> 587
+> 2525 
+
+For encrypted mail use STARTLS,TLS 
+
+If use this install postfix but we can not find spam.
+
+For use gmail send email
+```bash
+dig +short gmail.com mx 
+# some number is low better
+```

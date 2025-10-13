@@ -37,6 +37,6 @@ from django.contrib.auth.forms import UserCreationForm
 class SignUpForm(UserCreationForm):
     class Meta:
         model=models.User
-        exclude=['is_superuser','user_permissions'
-            ,'last_login','date_joined','avatar','password'
-                 'groups','is_staff','is_active'] # not active
+        exclude=['is_superuser','user_permissions','address','Groups'
+            ,'last_login','date_joined',
+                 'avatar','password','groups','is_staff','is_active'] # not active

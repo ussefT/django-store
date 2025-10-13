@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="975299fd-44f2-4d54-a803-dcc75e3e3733" name="A">
+        <fileTransfer rootFolder="/home/raven" accessType="SFTP" host="192.168.56.106" port="22" sshConfigId="ddf03bcc-3a79-4a75-8967-52ebf77fcd61" sshConfig="raven@192.168.56.106:22 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

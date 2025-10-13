@@ -3,12 +3,39 @@
 {% block section %}
 {% endblock %}
 {% block content %}
-    <form method="post">
+       <form method="post"
+          class="m-4 "
+          enctype="application/x-www-form-urlencoded">
     {% csrf_token %}
-    <table>
-        {{ form }}
-    </table>
-    <input type="submit" value="Login">
+        {{ form.non_field_errors }}
+
+       {% for field in form %}
+
+<table >
+<tr>
+    <th>
+        {{ field.label_tag }}</th>
+</tr>
+
+<tr>
+    <td>{{ field }}</td>
+</tr>
+<tr>
+    <td  class="fw-light ">
+        {{ field.help_text }}
+    </td>
+</tr>
+<tr>
+    <td>
+              <p class="fw-light ">
+    {{ field.errors }}
+            </p>
+
+</td>
+</tr>
+</table>
+       {% endfor %}
+    <input type="submit" value="SignUp">
     </form>
 {% endblock %}
 

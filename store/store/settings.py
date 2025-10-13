@@ -151,6 +151,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL='/'
 
 
+# For send email
 EMAIL_HOST="addres of SMTP server"
 EMAIL_HOST_USER="store@company.com"
 EMAIL_HOST_PASSWORD=""
