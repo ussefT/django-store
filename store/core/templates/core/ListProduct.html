@@ -28,7 +28,11 @@ Total Product : {{ product|length }}
             {% for product in products%}
             <div class="col">
               <div class="card shadow-sm">
-               <img src="{% static product.image.url %}" class="bd-placeholder-img card-img-top"/>
+              {% if  product.image  %}
+               <img  alt="{{ product.name }}" src="{% static product.image.url %}" class="bd-placeholder-img card-img-top"/>
+              {% else %}
+               <img src="" alt="{{ product.name }}" class="bd-placeholder-img card-img-top"/>
+              {% endif %}
                 <div class="card-body">
                     <p ></p>
 
@@ -52,7 +56,7 @@ Total Product : {{ product|length }}
                         type="button"
                         class="btn btn-sm btn-outline-secondary"
                       >
-                        <a href="{% url 'core:cart_add' product.id%} " >Add<a/>
+                        <a href="{% url 'cart_add' product.id%} " data_id="{{ product.id }}"class="add-to-cart" >Add</a>
                       </button>
                     </div>
                     <small class="text-body-secondary">
@@ -68,6 +72,19 @@ Total Product : {{ product|length }}
             </div>
 
             {%endfor%}
+            <script>
+        
+                $(".add-to-cart").click(function (e) {
+                   target_=$(this).attr('href');
+                    $.get(target_,function (res,status,xhr){
+                       count=Object.keys(res).length;
+                       $('#cart-count').html(count);
+                    });
+                e.preventDefault();
+                return false;
+
+                })
+            </script>
              </div>
         </div>
       </div>

@@ -34,7 +34,8 @@ class Base(models.Model):
     deleted_date=models.DateTimeField(default=None, null=True,blank=True)
     
     user=models.ForeignKey(User,on_delete=models.PROTECT,null=True)
-    
+
+    count=models.IntegerField(default=0)
     # this class do not create on the database 
     # use only abstract another class 
     # conflict beacuse category two realtion on one table
@@ -42,8 +43,7 @@ class Base(models.Model):
         abstract=True
     
     
-    def __str__(self):
-        return f"{self.name}"
+
     
         
 # 1-1-2
@@ -104,7 +104,7 @@ class Product(Base): # create table
     #   )
     
     #status=models.IntegerField(max_length=10,choices=STATUS_CHOISES)
-    
+
     def __str__(self):
         return f"{self.name}"
     

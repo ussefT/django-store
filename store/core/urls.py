@@ -2,9 +2,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-
-    path('say',views.say,name='say'),
-    
     path('',views.ListProduct.as_view(),name='list_product'),
     path('cart/add/<int:id>', views.AddToCartView.as_view(), name='cart_add'),
     path('cart/remove/<int:id>', views.RemoveToCartView.as_view(), name='cart_remove'),
@@ -13,7 +10,7 @@ urlpatterns = [
     path('checkout', views.ChekoutCartView.as_view(), name='checkout'),
 
 
-
+    path('test',views.TestView.as_view(),name='test'),
 ]
 
 # by default media is loaded for appServer

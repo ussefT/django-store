@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for id,item in cart %}
+
+ <div class="" data-id="{{ id }}">
+    {{ item.obj.name }}
+    {{ item.conut }}
+    {{ item.obj.discount }}
+    {{ item.obj.price }}
+    {{ item.price }}
+    <a class="cart-remove-link"
+       href="{% url 'cart-remove' id%}">remove</a>
+ </div>
+    {% endfor %}
+<br>
+
+Total <span id="total-price">
+    {{ total }}
+</span>
+    <script>
+$('#cart-remove-link').click(function (e) {
+    link=$(this);
+    target=link.attr('href')
+    $.get(target,function (res,status,xhr){
+        $('#total-price').html(res.total);
+        if(!Object.keys(res.cart).includes(link.attr('data-id'))){
+            link.parent('div').remove();
+        }
+    });
+    e.preventDefault();
+    return false;
+});
+</script>
+{% endblock %}
+
