@@ -122,3 +122,41 @@ class Comment(Base):
     
 class Like(Base):
     ...
+
+class InvoiceItem(models.Model):
+    product=models.ForeignKey(Product,on_delete=models.PROTECT)
+    invoice=models.ForeignKey('Invoice',on_delete=models.CASCADE)
+    count=models.IntegerField()
+    price=models.IntegerField()
+    discount=models.FloatField()
+    name=models.CharField(max_length=225)
+    total=models.IntegerField()
+
+class Invoice(models.Model):
+    date=models.DateTimeField(auto_now_add=True)
+    number=models.IntegerField(null=True,blank=True)
+    user=models.ForeignKey(User,on_delete=models.PROTECT)
+    discount=models.FloatField(default=0)
+    description=models.TextField(null=True,blank=True)
+    address=models.CharField(max_length=255)
+    vat=models.FloatField(default=0.09)
+
+
+class Payment(models.Model):
+    STATUS_PENDING='pending'
+    STATUS_DONE='done'
+    STATUS_ERROR='error'
+    STATUS_CHOICES=(
+        (STATUS_PENDING,'pending')
+                        ,(STATUS_DONE,'done')
+                        ,(STATUS_ERROR,'error')
+                    )
+    invoice=models.OneToOneField(Invoice,on_delete=models.PROTECT)
+    total=models.IntegerField()
+    ref=models.CharField(max_length=255)
+    status=models.CharField(choices=STATUS_CHOICES,max_length=20)
+
+    authority=models.CharField(max_length=255)
+    description=models.TextField()
+    user_ip=models.CharField(max_length=255)
+

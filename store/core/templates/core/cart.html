@@ -20,6 +20,7 @@
 Total <span id="total-price">
     {{ total }}
 </span>
+    <a href="{% url 'checkout' %}" class="btn btn-primary">Checkout</a>
     <script>
 $('#cart-remove-link').click(function (e) {
     link=$(this);
