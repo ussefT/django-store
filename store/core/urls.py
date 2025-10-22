@@ -11,7 +11,8 @@ urlpatterns = [
     path('pay', views.PayView.as_view(), name='pay'),
 
 
-    path('test',views.TestView.as_view(),name='test'),
+    path('api/product',views.ProductListAPIView.as_view(),name='api_product'),
+
 ]
 
 # by default media is loaded for appServer

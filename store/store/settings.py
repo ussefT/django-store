@@ -50,6 +50,9 @@ INSTALLED_APPS = [
      'account',
      # Add own app to this
     'core',
+    
+    #  rest api
+     'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -161,6 +164,8 @@ EMAIL_USE_TLS=True
 ## save session in file
 # SESSION_ENGINE='django.contrib.sessions.backends.file'
 # SESSION_FILE_PATH='/tmp/'
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
 
 SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 

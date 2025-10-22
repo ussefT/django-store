@@ -21,7 +21,7 @@
 - [enctype]()
 - [SMTP]()
 - [session]()
-
+- [REST_API]()
 For install django in linux, create virtualenv
 ```python
 python3 -m virtualenv env

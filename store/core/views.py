@@ -9,6 +9,9 @@ from django.views import View
 from django.shortcuts import get_object_or_404
 from . import models
 from . import forms
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from . import serializers
 # Create your views here.
 
 # function Based
@@ -35,6 +38,7 @@ def get_cart_total_price(cart):
 def get_cart(req):
     """get cart from request"""
     cart=req.session.get('cart',{})
+    p=cart
     if not cart or not isinstance(cart,list):
         cart={}
     return cart
@@ -62,7 +66,7 @@ class AddToCartView(View):
         request.session['cart']=cart
         if request.headers.get('x-request-with')=='XMLHttpRequest':
             return JsonResponse(cart)
-        return HttpResponseRedirect(reverse('core:product_list'))
+        return HttpResponseRedirect(reverse('product_list'))
 
 class RemoveToCartView(View):
     def get(self,request,id):
@@ -115,7 +119,7 @@ class ChekoutCartView(View):
 
             invoice.save()
 
-            items=models.Product.objects.filter(id__in=cart.key())
+            items=models.Product.objects.filter(id__in=cart.keys())
 
             item_objects=[]
             for item_id,item_count in cart.items():
@@ -156,3 +160,12 @@ def get_user_ip(request):
     if not ip:
         ip=request.META.get('REMOTE_ADDR')
     return ip
+
+
+class ProductListAPIView(APIView):
+    def get(self,request,format=None):
+        obj=models.Product.objects.all()
+        s=serializers.ProductListSerializer(obj,many=True)
+
+        return Response(s.data)
+
