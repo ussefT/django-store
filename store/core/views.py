@@ -12,6 +12,9 @@ from . import forms
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from . import serializers
+from rest_framework import status
+from rest_framework.permissions import AllowAny
+
 # Create your views here.
 
 # function Based
@@ -55,19 +58,33 @@ def remove_from_cart(cart,id):
     if str(id) in cart:
         del cart[str(id)]
 
-class AddToCartView(View):
-    def get(self,request,id:int):
-        """add to cart with get"""
-        # check product is exist or not
-        obj=get_object_or_404(models.Product,id=id)
-        # session :{ 'cart':{...} }
-        cart=get_cart(request)
-        add_to_cart(cart,obj)
-        request.session['cart']=cart
-        if request.headers.get('x-request-with')=='XMLHttpRequest':
-            return JsonResponse(cart)
-        return HttpResponseRedirect(reverse('product_list'))
+class AddToCartView(APIView):
 
+    permission_classes = [AllowAny]
+    authentication_classes = []
+
+    def post(self,request):
+        """add to cart with get"""
+
+        s=serializers.CartAddSerializer(data=request.data)
+        if s.is_valid():
+            try:
+                # in class serializer
+                id=s.validated_data['product_id']
+                # check product is exist or not
+                obj=models.Product.objects.get(id=id)
+
+                # session :{ 'cart':{...} }
+                cart=get_cart(request)
+                add_to_cart(cart,obj)
+                request.session['cart']=cart
+
+                if request.headers.get('x-request-with')=='XMLHttpRequest':
+                    return JsonResponse(cart)
+                return HttpResponseRedirect(reverse('product_list'))
+            except models.Product.DoesNotExist:
+                return Response({'error':'Product not found'},status=status.HTTP_404_NOT_FOUND)
+        return Response({'error':'bad request'},status=status.HTTP_400_BAD_REQUEST)
 class RemoveToCartView(View):
     def get(self,request,id):
         """remove from cart list with get"""
@@ -87,6 +104,14 @@ class EmptyToCartView(View):
         if request.is_ajax():
             return JsonResponse({})
         return HttpResponseRedirect(reverse('core/product_list'))
+
+class GetCartAPIView(APIView):
+    permission_classes = [AllowAny]
+
+    def get(self,request):
+        cart=get_cart(request)
+        s=serializers.CartShowSerializer(data=cart)
+        return Response(s.data)
 class ShowCartView(View):
     def get(self,request):
         cart=get_cart(request)
@@ -162,10 +187,21 @@ def get_user_ip(request):
     return ip
 
 
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import TokenAuthentication
 class ProductListAPIView(APIView):
+
+    # we can change permission this
+    permission_classes = [
+        IsAuthenticated,
+    ]
+
+    # authentication_classes = [
+    #     TokenAuthentication,
+    # ]
+
     def get(self,request,format=None):
         obj=models.Product.objects.all()
         s=serializers.ProductListSerializer(obj,many=True)
-
         return Response(s.data)
 

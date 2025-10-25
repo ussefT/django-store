@@ -53,6 +53,16 @@ INSTALLED_APPS = [
     
     #  rest api
      'rest_framework',
+
+    # after that
+    # python manage.py makemigration
+    # python manage.py migrate
+    'rest_framework.authtoken',
+    
+    # JWT
+    'rest_framework_simplejwt' ,
+
+
 ]
 
 MIDDLEWARE = [
@@ -172,3 +182,32 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE=True
 # never remove
 # SESSION_COOKIE_AGE=10*60 # by second 10min
 # SESSION_COOKIE_AGE=0
+
+
+# setting for Token Session, JwT, Token
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        ## required login
+        # 'rest_framework.permissions.IsAuthenticated',
+
+        ## require login readOnly
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=5),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+    "ROTATE_REFRESH_TOKENS": True,
+    "BLACKLIST_AFTER_ROTATION": True,
+}

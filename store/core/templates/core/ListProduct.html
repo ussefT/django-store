@@ -57,7 +57,7 @@ Total Product : {{ product|length }}
                         class="btn btn-sm btn-outline-secondary"
                       >
                           {% if user.is_authenticated  %}
-                        <a href="{% url 'cart_add' product.id%} " data_id="{{ product.id }}" class="add-to-cart" >Add</a>
+                        <a href="{% url 'cart_add'%} " data_id="{{ product.id }}" class="add-to-cart" >Add</a>
                       {% else %}
 
                           <a href="{% url 'login' %}">Login</a>
@@ -81,10 +81,11 @@ Total Product : {{ product|length }}
         
                 $(".add-to-cart").click(function (e) {
                    target_=$(this).attr('href');
-                    $.get(target_,function (res,status,xhr){
+                   pid=$(this).attr('data-id')
+                    $.post(target_,{'product_id':pid},function (res,status,xhr){
                        count=Object.keys(res).length;
                        $('#cart-count').html(count);
-                    });
+                    },'application/json');
                 e.preventDefault();
                 return false;
 
